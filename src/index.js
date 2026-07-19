@@ -11,14 +11,9 @@ const rest = new REST().setToken(process.env.TOKEN);
 
 // Methods
 
-module.exports.createClient = () => {
+module.exports.createClient = (options) => {
 	// Create client
-	const client = new Client({
-		intents: Object.keys(GatewayIntentBits).map((a) => {
-			return GatewayIntentBits[a];
-		})
-	});
-
+	const client = new Client(options);
 	client.commands = new Collection();
 
 	// Register commands
