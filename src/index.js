@@ -3,7 +3,7 @@ require('dotenv').config({quiet: true});
 // Grab packages
 const fs = require('node:fs');
 const path = require('node:path');
-const {Client, Events, GatewayIntentBits, Collection, REST, Routes} = require('discord.js');
+const {Client, Events, GatewayIntentBits, Collection, MessageFlags, REST, Routes} = require('discord.js');
 
 // Constants
 const argv = process.argv.slice(2);
@@ -50,6 +50,9 @@ module.exports.createClient = (options) => {
 		try {
 			await command.execute(interaction);
 		} catch (error) {
+			console.error(`[Pukeko] Error executing ${interaction.commandName}`);
+			console.error(error)
+
 			if (interaction.replied || interaction.deferred) {
 				await interaction.followUp({
 					content: 'There was an error while executing this command!',
